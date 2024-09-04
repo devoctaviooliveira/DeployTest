@@ -4,6 +4,11 @@ export default $config({
   app(input) {
     return {
       name: "DeployTest",
+      providers: {
+        aws: {
+          profile: "octaviooliveira"
+        }
+      },
       removal: input?.stage === "production" ? "retain" : "remove",
       home: "aws",
     };
@@ -15,13 +20,5 @@ export default $config({
     return {
       frontend: frontend.frontend.url
     }
-    const auth = await import("./infra/auth");
-
-    return {
-      UserPool: auth.userPool.id,
-      Region: aws.getRegionOutput().name,
-      IdentityPool: auth.identityPool.id,
-      UserPoolClient: auth.userPoolClient.id,
-    };
   },
 });
